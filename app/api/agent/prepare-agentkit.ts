@@ -9,7 +9,6 @@ import {
   WalletProvider,
   wethActionProvider,
 } from "@coinbase/agentkit";
-import * as fs from "fs";
 
 /**
  * AgentKit Integration Route
