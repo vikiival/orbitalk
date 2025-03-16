@@ -58,24 +58,24 @@ export async function prepareAgentkitAndWalletProvider(): Promise<{
   walletProvider: WalletProvider;
 }> {
   try {
-    let walletDataStr: string | null = null;
+    // let walletDataStr: string | null = null;
 
-    // Read existing wallet data if available
-    if (fs.existsSync(WALLET_DATA_FILE)) {
-      try {
-        walletDataStr = fs.readFileSync(WALLET_DATA_FILE, "utf8");
-      } catch (error) {
-        console.error("Error reading wallet data:", error);
-        // Continue without wallet data
-      }
-    }
+    // // Read existing wallet data if available
+    // if (fs.existsSync(WALLET_DATA_FILE)) {
+    //   try {
+    //     walletDataStr = fs.readFileSync(WALLET_DATA_FILE, "utf8");
+    //   } catch (error) {
+    //     console.error("Error reading wallet data:", error);
+    //     // Continue without wallet data
+    //   }
+    // }
 
     // Initialize WalletProvider: https://docs.cdp.coinbase.com/agentkit/docs/wallet-management
     const walletProvider = await CdpWalletProvider.configureWithWallet({
       apiKeyName: process.env.CDP_API_KEY_NAME,
       apiKeyPrivateKey: process.env.CDP_API_KEY_PRIVATE_KEY,
       networkId: process.env.NETWORK_ID || "base-sepolia",
-      cdpWalletData: walletDataStr || undefined,
+      cdpWalletData: process.env.WALLET_DATA_FILE || undefined ///walletDataStr || undefined,
     });
 
     // Initialize AgentKit: https://docs.cdp.coinbase.com/agentkit/docs/agent-actions
