@@ -1,8 +1,8 @@
-import { AgentRequest, AgentResponse } from "@/app/types/api";
+import { AgentRequest } from "@/app/types/api";
 import { NextResponse } from "next/server";
 import { createAgent } from "../agent/create-agent";
 import { Message, generateId, generateText } from "ai";
-import { entropy } from '../orbitport/utils'
+import { freshEntropy } from '../orbitport/utils'
 
 export type OmiResponse = { response?: string; error?: string };
 
@@ -11,8 +11,8 @@ export type OmiResponse = { response?: string; error?: string };
  * This function processes user messages and streams responses from the agent.
  *
  * @function POST
- * @param {Request & { json: () => Promise<AgentRequest> }} req - The incoming request object containing the user message.
- * @returns {Promise<NextResponse<AgentResponse>>} JSON response containing the AI-generated reply or an error message.
+ * @param {Request & { json: () => Promise<any> }} req - The incoming request object containing the user message.
+ * @returns {Promise<NextResponse<any>>} JSON response containing the AI-generated reply or an error message.
  *
  * @description Sends a single message to the agent and returns the agents' final response.
  *
@@ -33,6 +33,9 @@ export async function POST(
 
     // 2. Get the agent
     const agent = await createAgent();
+
+    // 2.1 Get entropy
+    const entropy = await freshEntropy();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userMessage = segments.map((s: any) => s.text).join(" ");
