@@ -41,7 +41,7 @@ import * as fs from "fs";
  */
 
 // Configure a file to persist the agent's CDP MPC Wallet Data
-const WALLET_DATA_FILE = "wallet_data.txt";
+// const WALLET_DATA_FILE = "wallet_data.txt";
 
 /**
  * Prepares the AgentKit and WalletProvider.
@@ -98,8 +98,8 @@ export async function prepareAgentkitAndWalletProvider(): Promise<{
     });
 
     // Save wallet data
-    const exportedWallet = await walletProvider.exportWallet();
-    fs.writeFileSync(WALLET_DATA_FILE, JSON.stringify(exportedWallet));
+    // const exportedWallet = await walletProvider.exportWallet();
+    // fs.writeFileSync(WALLET_DATA_FILE, JSON.stringify(exportedWallet));
 
     return { agentkit, walletProvider };
   } catch (error) {
