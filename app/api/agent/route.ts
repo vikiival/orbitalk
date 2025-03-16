@@ -2,6 +2,7 @@ import { AgentRequest, AgentResponse } from "@/app/types/api";
 import { NextResponse } from "next/server";
 import { createAgent } from "./create-agent";
 import { Message, generateId, generateText } from "ai";
+import { entropy } from "../orbitport/utils"
 
 const messages: Message[] = [];
 
@@ -37,7 +38,7 @@ export async function POST(
     const { text } = await generateText({
       ...agent,
       messages,
-      // seed: 0,
+      seed: entropy.seed
       // temperature: 0
     });
 
